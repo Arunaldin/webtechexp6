@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GST Calculator</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .gst-container {
+      background-color: #e0f7fa;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 320px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #000;
+      line-height: 1.8;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gst-container">
+    <h2>GST Calculator</h2>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" placeholder="Enter amount">
+
+    <label for="gst">GST (%):</label>
+    <select id="gst">
+      <option value="3">3%</option>
+      <option value="5">5%</option>
+      <option value="12">12%</option>
+      <option value="18">18%</option>
+      <option value="28">28%</option>
+    </select>
+
+    <div class="result" id="result">
+      Actual Amount: 0.00 <br>
+      GST: 0.00 <br>
+      Total: 0.00
+    </div>
+
+    <button onclick="calculateGST()">Calculate</button>
+    <button onclick="resetFields()">Reset</button>
+  </div>
+
+  <script>
+    function calculateGST() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      const gst = parseFloat(document.getElementById("gst").value);
+
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+
+      const gstAmount = (amount * gst / 100).toFixed(2);
+      const total = (amount + parseFloat(gstAmount)).toFixed(2);
+
+      document.getElementById("result").innerHTML =
+        `Actual Amount: ${amount.toFixed(2)} <br>
+         GST: ${gstAmount} <br>
+         Total: ${total}`;
+    }
+
+    function resetFields() {
+      document.getElementById("amount").value = "";
+      document.getElementById("gst").value = "3";
+      document.getElementById("result").innerHTML =
+        "Actual Amount: 0.00 <br> GST: 0.00 <br> Total: 0.00";
+    }
+  </script>
+
+</body>
+</html>

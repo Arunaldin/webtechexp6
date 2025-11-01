@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Calculator App</title>
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .budget-container {
+      background-color: #fff;
+      width: 600px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      background-color: #000;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    .input-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    input[type="number"] {
+      padding: 8px;
+      width: 150px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+
+    .box {
+      flex: 1;
+      text-align: center;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 5px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .rent { background-color: #007bff; }
+    .accessories { background-color: #28a745; }
+    .emergency { background-color: #17a2b8; }
+    .saving { background-color: #dc3545; }
+  </style>
+</head>
+<body>
+
+  <div class="budget-container">
+    <h2>Budget Calculator App</h2>
+
+    <div class="input-section">
+      <p><b>Enter Amount that you want to Manage</b></p>
+      <input type="number" id="amount" placeholder="Enter total amount" value="15000"><br><br>
+
+      <p><b>How would you like to divide your money?</b></p>
+      Room Rent(%) <input type="number" id="rent" value="35">
+      Accessories(%) <input type="number" id="accessories" value="15">
+      Emergency(%) <input type="number" id="emergency" value="20">
+      Saving(%) <input type="number" id="saving" value="30"><br>
+
+      <button id="evaluate">Evaluate My Money</button>
+    </div>
+
+    <div class="result">
+      <div class="box rent" id="rentResult">Room Rent<br>Rs. 0.00</div>
+      <div class="box accessories" id="accessoriesResult">Accessories<br>Rs. 0.00</div>
+      <div class="box emergency" id="emergencyResult">Emergency<br>Rs. 0.00</div>
+      <div class="box saving" id="savingResult">Saving<br>Rs. 0.00</div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $("#evaluate").click(function() {
+        let amount = parseFloat($("#amount").val());
+        let rent = parseFloat($("#rent").val());
+        let accessories = parseFloat($("#accessories").val());
+        let emergency = parseFloat($("#emergency").val());
+        let saving = parseFloat($("#saving").val());
+
+        // Validate input
+        if (isNaN(amount) || amount <= 0) {
+          alert("Please enter a valid amount.");
+          return;
+        }
+
+        let totalPercent = rent + accessories + emergency + saving;
+
+        if (totalPercent !== 100) {
+          alert("The total percentage must be equal to 100%.");
+          return;
+        }
+
+        // Calculate and display values
+        let rentAmt = (amount * rent / 100).toFixed(2);
+        let accessoriesAmt = (amount * accessories / 100).toFixed(2);
+        let emergencyAmt = (amount * emergency / 100).toFixed(2);
+        let savingAmt = (amount * saving / 100).toFixed(2);
+
+        $("#rentResult").html(`Room Rent<br>Rs. ${rentAmt}`);
+        $("#accessoriesResult").html(`Accessories<br>Rs. ${accessoriesAmt}`);
+        $("#emergencyResult").html(`Emergency<br>Rs. ${emergencyAmt}`);
+        $("#savingResult").html(`Saving<br>Rs. ${savingAmt}`);
+      });
+    });
+  </script>
+
+</body>
+</html>
